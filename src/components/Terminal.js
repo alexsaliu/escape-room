@@ -1,70 +1,104 @@
 import {useState, useEffect, useRef} from 'react'
 
-const text = `    const generateEmails = () => {
-        //// Groups candidates according to their elligable jobs ////
+import { initialText } from './initialText.js'
 
-        // Captures all jobs eligable for each candidate
-        const candidateJobs = []
-        for (let i = 0; i < candidates.length; i++) {
-            const obj = {'id': i, 'jobIds': []}
-            for (let j = 0; j < jobs.length; j++) {
-                const matches = candidates[i].candidateTags.filter(tag => jobs[j].jobTags.includes(tag))
-                if (matches.length) obj.jobIds.push(j)
-            }
-            candidateJobs.push(obj)
-        }
+const Terminal = ({deactivate}) => {
+    const [input, _setInput] = useState('')
+    const [code, setCode] = useState(initialText)
 
-        // Adds candidate ids to joblists shared between candidates
-        const jobGroups = []
-        for (let i = 0; i < candidateJobs.length; i++) {
-            let added = false
-            for (let j = 0; j < jobGroups.length; j++) {
-                if (JSON.stringify(candidateJobs[i].jobIds) === JSON.stringify(jobGroups[j].jobIds)) {
-                    jobGroups[j].candidateIds.push(i)
-                    added = true
-                    break
-                }
-            }
-            if (!added) jobGroups.push({'candidateIds': [i], 'jobIds': [...candidateJobs[i].jobIds]})
-        }
+    const [step, _setStep] = useState(0)
+    const [code1, setCode1] = useState('')
 
-        setGroups(jobGroups)
-        setSelectedGroupId(-2)
-        setEmail('')
-    }`
+    const inputRef = useRef('')
+    const stepRef = useRef(0)
 
-const Terminal = () => {
-    const [input, setInput] = useState('')
-
-    const inputRef = useRef(null)
+    const setInput = (value) => {
+        inputRef.current = value
+        _setInput(value)
+    }
+    const setStep = (value) => {
+        stepRef.current = value
+        _setStep(value)
+    }
 
     useEffect(() => {
-        if (input.length > 30) {
-            let value = input.split('')
-            value.pop()
-            setInput(value.join(''))
+        if (step === 4) {
+            deactivate()
         }
-    }, [input])
+    }, [step])
 
     useEffect(() => {
-        window.addEventListener('click', clickPage)
+        document.addEventListener("keydown", keyDown)
         return () => {
-            window.removeEventListener('click', clickPage)
+            document.removeEventListener("keydown", keyDown)
         }
     }, [])
 
-    function clickPage() {
-        inputRef.current.focus()
+    const keyDown = (e) => {
+        console.log(e);
+        if (e.key === 'Backspace') {
+            let value = inputRef.current.split('')
+            let lastChar = value.pop()
+            if (lastChar ===  '>') value.splice(value.length - 18)
+            setInput(value.join(''))
+        }
+        if (e.code === "Space") {
+            setInput(inputRef.current + '<span>&nbsp;</span>')
+        }
+        else if (e.key.length < 2) {
+            setInput(inputRef.current + e.key)
+        }
+        if (e.key === 'Enter') {
+            const prevInput = inputRef.current
+            setCode(val => val + prevInput + '<br>')
+            setInput('')
+            if (stepRef.current === 0) {
+                if (prevInput === 'y') {
+                    setStep(1)
+                    setCode(val => val + 'Input wine code:' + '<br>')
+                }
+                else {
+                    setCode(val => val + 'Initiate deactivation protocal? [y/n]:<br>')
+                }
+            }
+            else if (stepRef.current === 1) {
+                if (prevInput === 'jellyfish') {
+                    setStep(2)
+                    setCode(val => val + 'Input buddha code:' + '<br>')
+                }
+                else {
+                    setCode(val => val + 'Input wine code:' + '<br>')
+                }
+            }
+            else if (stepRef.current === 2) {
+                if (prevInput === 'hardqueen') {
+                    setStep(3)
+                    setCode(val => val + 'Input gym code:' + '<br>')
+                }
+                else {
+                    setCode(val => val + 'Input buddha code:' + '<br>')
+                }
+            }
+            else if (stepRef.current === 3) {
+                if (prevInput === 'georgeferguson') {
+                    setStep(4)
+                    setCode(val => val + 'Input shower code:' + '<br>')
+                }
+                else {
+                    setCode(val => val + 'Input gym code:' + '<br>')
+                }
+            }
+            const element = document.querySelector(".terminal")
+            element.scrollTop = element.scrollHeight
+        }
+        return true
     }
 
     return (
         <div className="terminal">
-            <input ref={inputRef} type="text" onChange={(e) => setInput(e.target.value)} value={input}/>
-            <div className="code">
-                {text}
-            </div>
+            <div className="code" dangerouslySetInnerHTML={{__html: code}}></div>
             <div className="input">
-                {input}
+                <div dangerouslySetInnerHTML={{__html: input}}></div>
                 <div className="input-cursor"></div>
             </div>
         </div>
