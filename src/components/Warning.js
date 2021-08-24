@@ -6,7 +6,7 @@ import alarm from './alarm.mp3'
 import loomingdread from './looming_dread.mp3'
 
 const Warning = ({deactivated, timerEnd}) => {
-    const [timer, setTimer] = useState(7 * 60 - 1)
+    const [timer, setTimer] = useState(3 * 60 - 1)
     const [audio1, setAudio1] = useState(new Audio(alarm))
     const [audio2, setAudio2] = useState(new Audio(loomingdread))
 

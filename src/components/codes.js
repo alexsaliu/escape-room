@@ -1,17 +1,17 @@
 export const codes = [
     "y",
-    "holy",
-    "gizzard",
-    "giblets",
-    "scoby",
-    "melatonin",
+    "2",
+    "9",
+    "1",
+    "0",
+    "301",
 ]
 
 export const questions = [
     "Initiate deactivation protocal? [y/n]:",
-    "Input wine code:",
-    "Input buddha code:",
-    "Input gym code:",
-    "Input the holy bacterium of which thou devoutly worship:",
-    "Input the sleep hormone of the gods:",
+    "1+1=",
+    "3x3=",
+    "2/2=",
+    "2%2=",
+    "300/1+1=",
 ]
