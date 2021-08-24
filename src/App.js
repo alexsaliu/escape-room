@@ -5,16 +5,20 @@ import Terminal from './components/Terminal.js'
 
 function App() {
     const [deactivated, setDeactivated] = useState(false)
+    const [end, setEnd] = useState(false)
 
     const deactivate = () => {
-        console.log("OK");
         setDeactivated(true)
+    }
+
+    const timerEnd = () => {
+        setEnd(true)
     }
 
     return (
         <div className="app">
-            <Terminal deactivate={deactivate} />
-            <Warning deactivated={deactivated} />
+            <Terminal deactivate={deactivate} end={end} />
+            <Warning deactivated={deactivated} timerEnd={timerEnd} />
         </div>
     )
 }

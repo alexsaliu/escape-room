@@ -1,8 +1,10 @@
 import {useState, useEffect, useRef} from 'react'
 
 import { initialText } from './initialText.js'
+import { codes } from './codes.js'
+import { questions } from './codes.js'
 
-const Terminal = ({deactivate}) => {
+const Terminal = ({deactivate, end}) => {
     const [input, _setInput] = useState('')
     const [code, setCode] = useState(initialText)
 
@@ -22,7 +24,8 @@ const Terminal = ({deactivate}) => {
     }
 
     useEffect(() => {
-        if (step === 4) {
+        if (end) return
+        if (step === 6) {
             deactivate()
         }
     }, [step])
@@ -53,39 +56,57 @@ const Terminal = ({deactivate}) => {
             setCode(val => val + prevInput + '<br>')
             setInput('')
             if (stepRef.current === 0) {
-                if (prevInput === 'y') {
+                if (prevInput === codes[0]) {
                     setStep(1)
-                    setCode(val => val + 'Input wine code:' + '<br>')
+                    setCode(val => val + questions[1] + '<br>')
                 }
                 else {
-                    setCode(val => val + 'Initiate deactivation protocal? [y/n]:<br>')
+                    setCode(val => val + questions[0] + '<br>')
                 }
             }
             else if (stepRef.current === 1) {
-                if (prevInput === 'jellyfish') {
+                if (prevInput === codes[1]) {
                     setStep(2)
-                    setCode(val => val + 'Input buddha code:' + '<br>')
+                    setCode(val => val + questions[2] + '<br>')
                 }
                 else {
-                    setCode(val => val + 'Input wine code:' + '<br>')
+                    setCode(val => val + questions[1] + '<br>')
                 }
             }
             else if (stepRef.current === 2) {
-                if (prevInput === 'hardqueen') {
+                if (prevInput === codes[2]) {
                     setStep(3)
-                    setCode(val => val + 'Input gym code:' + '<br>')
+                    setCode(val => val + questions[3] + '<br>')
                 }
                 else {
-                    setCode(val => val + 'Input buddha code:' + '<br>')
+                    setCode(val => val + questions[2] + '<br>')
                 }
             }
             else if (stepRef.current === 3) {
-                if (prevInput === 'georgeferguson') {
+                if (prevInput === codes[3]) {
                     setStep(4)
-                    setCode(val => val + 'Input shower code:' + '<br>')
+                    setCode(val => val + questions[4] + '<br>')
                 }
                 else {
-                    setCode(val => val + 'Input gym code:' + '<br>')
+                    setCode(val => val + questions[3] + '<br>')
+                }
+            }
+            else if (stepRef.current === 4) {
+                if (prevInput === codes[4]) {
+                    setStep(5)
+                    setCode(val => val + questions[5] + '<br>')
+                }
+                else {
+                    setCode(val => val + questions[4] + '<br>')
+                }
+            }
+            else if (stepRef.current === 5) {
+                if (prevInput === codes[5]) {
+                    setStep(6)
+                    setCode(val => val + 'Virus deactivated!!!!!!!' + '<br>')
+                }
+                else {
+                    setCode(val => val + questions[5] + '<br>')
                 }
             }
             const element = document.querySelector(".terminal")

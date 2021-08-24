@@ -8,12 +8,12 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: consolas, source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 * {
-    font-family: 'Source Code Pro', monospace;
+    font-family: consolas, 'Source Code Pro', monospace;
     box-sizing: border-box;
 }
 

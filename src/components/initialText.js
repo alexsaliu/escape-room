@@ -8,6 +8,7 @@ const locations = [<br>
     &nbsp;&nbsp;{name: 'Server 3', country: 'UK'},<br>
     &nbsp;&nbsp;{name: 'Server 4', country: 'AUS'},<br>
     &nbsp;&nbsp;{name: 'Server 5', country: 'RUSSIA'}<br>
+    &nbsp;&nbsp;{name: 'Server 6', country: 'INDIA'}<br>
 ];<br>
 <br>
 deployVirus(locations);
@@ -16,6 +17,7 @@ deployVirus(locations);
 Virus locations activated.<br>
 Deploy mechanisms ready.<br>
 Deploying virus............<br>
+<br>
 <br>
 Initiate deactivation protocal? [y/n]:<br>
 `
